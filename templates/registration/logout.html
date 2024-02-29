@@ -1,0 +1,12 @@
+{% extends 'web_backend/base.html' %}
+{% block title %}Logout{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %} #csrf_token is very important to have as this is POST request
+    <button type="submit">Logout</button>
+    </form>
+{% endblock %}
+
+
+<
