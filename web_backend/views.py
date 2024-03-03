@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import RegistrationForm, AddDataForm
 from django.contrib.auth.decorators import login_required
+from .models import Transactions
+
 
 
 # Create your views here.
 @login_required(login_url='login')
 def home(request):
-    return render(request, 'web_backend/home.html')
+    transactions = Transactions.objects.filter(username=request.user)
+
+    return render(request, 'web_backend/home.html', {"transactions": transactions})
 
 
 def signup(request):
