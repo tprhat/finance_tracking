@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'django_s3_storage',
     'crispy_forms',
     'crispy_bootstrap5',
+    'web_backend',
 ]
-
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
