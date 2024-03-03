@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from .forms import RegistrationForm
+from .forms import RegistrationForm, AddDataForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -24,4 +24,13 @@ def signup(request):
 
 @login_required(login_url='login')
 def add_data(request):
-    return render(request, 'web_backend/add_data.html')
+    if request.method == 'POST':
+        form = AddDataForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.username = request.user
+            data.save()
+            return redirect('home')
+    else:
+        form = AddDataForm()
+        return render(request, 'web_backend/add_data.html', {"form": form})
