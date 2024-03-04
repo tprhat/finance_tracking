@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from .forms import RegistrationForm, AddDataForm
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
+from .forms import RegistrationForm, AddDataForm
 from .models import Transactions
 
 
-
-# Create your views here.
 @login_required(login_url='login')
 def home(request):
     transactions = Transactions.objects.filter(username=request.user)
@@ -25,6 +24,7 @@ def signup(request):
         form = RegistrationForm()
 
     return render(request, 'registration/sign_up.html', {"form": form})
+
 
 @login_required(login_url='login')
 def add_data(request):
