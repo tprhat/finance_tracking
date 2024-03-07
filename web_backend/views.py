@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import RegistrationForm, AddDataForm
+from .forms import RegistrationForm, AddDataForm, ManageBudget
 from .models import Transactions
 
 
@@ -38,3 +38,16 @@ def add_data(request):
     else:
         form = AddDataForm()
         return render(request, 'web_backend/add_data.html', {"form": form})
+
+@login_required(login_url='login')
+def manage_budget(request):
+    if request.method == 'POST':
+        form = ManageBudget(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.username = request.user
+            data.save()
+            return redirect('home')
+    else:
+        form = ManageBudget()
+    return render(request, 'web_backend/manage_budget.html', {"form": form})
