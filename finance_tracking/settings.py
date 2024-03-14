@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'web_backend',
+    'corsheaders',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
@@ -84,8 +85,8 @@ TEMPLATES = [
 ]
 
 # CHANGE THIS TO FALSE IN PRODUCTION
-CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ORIGIN_WHITELIST = [ 'my_website_url' ]
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = ("http://localhost:8080",)
 
 WSGI_APPLICATION = 'finance_tracking.wsgi.application'
 
